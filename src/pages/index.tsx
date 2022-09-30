@@ -4,8 +4,8 @@ import {
   FormControl,
   FormLabel,
   Heading,
-  Input,
 } from "@chakra-ui/react";
+import { Input } from "./components/Input";
 
 export default function Home() {
   return (
@@ -24,29 +24,9 @@ export default function Home() {
           Sign In
         </Heading>
 
-        <FormControl display="flex" alignItems="flex-end">
-          <FormLabel htmlFor="email" margin={0} w="30%">
-            E-mail
-          </FormLabel>
-          <Input
-            type="email"
-            id="email"
-            variant="flushed"
-            borderBottomColor="gray.400"
-          />
-        </FormControl>
+        <Input name="email" label="E-mail" type="email" />
+        <Input name="password" label="Senha" type="password" />
 
-        <FormControl display="flex" alignItems="flex-end">
-          <FormLabel htmlFor="email" margin={0} w="30%">
-            Senha
-          </FormLabel>
-          <Input
-            type="password"
-            id="email"
-            variant="flushed"
-            borderBottomColor="gray.400"
-          />
-        </FormControl>
         <Button type="submit" colorScheme="blue" mt={8}>
           Entrar
         </Button>
