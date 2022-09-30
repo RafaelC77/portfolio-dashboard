@@ -1,10 +1,4 @@
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-} from "@chakra-ui/react";
+import { Button, Flex, Heading } from "@chakra-ui/react";
 import { Input } from "./components/Input";
 
 export default function Home() {
