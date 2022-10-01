@@ -1,4 +1,12 @@
-import { Flex, Heading, Link, ListItem, UnorderedList } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  Link,
+  List,
+  ListIcon,
+  ListItem,
+} from "@chakra-ui/react";
+import { BsHouseFill, BsPeopleFill, BsBox } from "react-icons/bs";
 import NextLink from "next/link";
 
 export function Sidebar() {
@@ -7,23 +15,32 @@ export function Sidebar() {
       <Heading mb={24}>Dash</Heading>
 
       <nav>
-        <UnorderedList>
+        <List spacing={4}>
           <ListItem>
             <NextLink href="/" passHref>
-              <Link>Home</Link>
+              <Link>
+                <ListIcon as={BsHouseFill} />
+                Dashboard
+              </Link>
             </NextLink>
           </ListItem>
           <ListItem>
             <NextLink href="/" passHref>
-              <Link>About</Link>
+              <Link>
+                <ListIcon as={BsPeopleFill} />
+                Costumers
+              </Link>
             </NextLink>
           </ListItem>
           <ListItem>
             <NextLink href="/" passHref>
-              <Link>Contact</Link>
+              <Link>
+                <ListIcon as={BsBox} />
+                Products
+              </Link>
             </NextLink>
           </ListItem>
-        </UnorderedList>
+        </List>
       </nav>
     </Flex>
   );
