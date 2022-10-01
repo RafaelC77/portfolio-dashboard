@@ -14,9 +14,9 @@ import NextLink from "next/link";
 export function Sidebar() {
   return (
     <Flex flexDir="column" h="100%" w={240} align="center" py={10}>
-      <Heading mb={12}>Dash</Heading>
+      <Heading mb={20}>Dash</Heading>
 
-      <Flex direction="column" align="center" mb={12}>
+      <Flex direction="column" align="center" mb={20}>
         <Avatar
           size="xl"
           name="Rafael Carvalho"
@@ -25,13 +25,15 @@ export function Sidebar() {
         <Text fontWeight="bold" mt={2}>
           Rafael Carvalho
         </Text>
-        <Text fontSize="small">rcarvalhobsb@gmail.com</Text>
+        <Text fontSize="small" color="gray.500">
+          rcarvalhobsb@gmail.com
+        </Text>
       </Flex>
 
       <nav>
-        <List spacing={4}>
+        <List spacing={6}>
           <ListItem>
-            <NextLink href="/" passHref>
+            <NextLink href="/dashboard" passHref>
               <Link>
                 <ListIcon as={BsHouseFill} />
                 Dashboard
@@ -39,7 +41,7 @@ export function Sidebar() {
             </NextLink>
           </ListItem>
           <ListItem>
-            <NextLink href="/" passHref>
+            <NextLink href="/costumers" passHref>
               <Link>
                 <ListIcon as={BsPeopleFill} />
                 Costumers
