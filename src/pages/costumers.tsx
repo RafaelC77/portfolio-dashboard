@@ -14,7 +14,12 @@ import { Sidebar } from "./components/Sidebar";
 export default function Costumers() {
   return (
     <Flex w="100vw" h="100vh" justify="center" align="center">
-      <Flex w="90%" h="90%" bg="gray.50" borderRadius={36}>
+      <Flex
+        w={{ base: "100%", md: "90%" }}
+        h={{ base: "100%", md: "90%" }}
+        bg="gray.50"
+        borderRadius={{ base: 0, md: 36 }}
+      >
         <Sidebar />
 
         <Flex
@@ -22,11 +27,16 @@ export default function Costumers() {
           w="100%"
           h="100%"
           bg="gray.200"
-          p={12}
+          p={{ base: 4, md: 12 }}
           borderRadius={36}
           direction="column"
+          overflow={{ base: "scroll", lg: "unset" }}
         >
-          <Heading fontSize="2xl" mb={12}>
+          <Heading
+            fontSize={{ base: "md", md: "2xl" }}
+            mb={12}
+            mt={{ base: 6, md: 0 }}
+          >
             Clientes
           </Heading>
 
