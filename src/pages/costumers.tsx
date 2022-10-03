@@ -8,8 +8,8 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { Pagination } from "./components/Pagination";
-import { Sidebar } from "./components/Sidebar";
+import { Pagination } from "../../components/Pagination";
+import { Sidebar } from "../../components/Sidebar";
 
 export default function Costumers() {
   return (
