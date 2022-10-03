@@ -8,10 +8,17 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
 
 export default function Costumers() {
+  useEffect(() => {
+    fetch("http://localhost:3000/api/costumers")
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
+
   return (
     <Flex w="100vw" h="100vh" justify="center" align="center">
       <Flex
