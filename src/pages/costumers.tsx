@@ -8,6 +8,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { Pagination } from "./components/Pagination";
 import { Sidebar } from "./components/Sidebar";
 
 export default function Costumers() {
@@ -48,6 +49,8 @@ export default function Costumers() {
               </Tr>
             </Tbody>
           </Table>
+
+          <Pagination />
         </Flex>
       </Flex>
     </Flex>

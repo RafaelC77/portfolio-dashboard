@@ -59,17 +59,29 @@ const series = [{ name: "lastWeek", data: [10, 34, 34, 23, 56, 65, 78] }];
 export default function Dashboard() {
   return (
     <Flex w="100vw" h="100vh" justify="center" align="center">
-      <Flex w="90%" h="90%" bg="gray.50" borderRadius={36}>
+      <Flex
+        w={{ base: "100%", md: "90%" }}
+        h={{ base: "100%", md: "90%" }}
+        bg="gray.50"
+        borderRadius={{ base: 0, md: 36 }}
+      >
         <Sidebar />
 
-        <Flex as="main" w="100%" h="100%" bg="gray.200" p={8} borderRadius={36}>
+        <Flex
+          as="main"
+          w="100%"
+          h="100%"
+          bg="gray.200"
+          p={{ base: 4, md: 8 }}
+          borderRadius={36}
+        >
           <SimpleGrid
             flex={1}
             gap={4}
-            minChildWidth={320}
+            minChildWidth={{ base: 240, sm: 320 }}
             alignItems="flex-start"
           >
-            <Box p={8} bg="gray.700" borderRadius={24} pb={4}>
+            <Box p={{ base: 4, md: 8 }} bg="gray.700" borderRadius={24} pb={4}>
               <Text color="gray.100" fontSize="large">
                 Vendas
               </Text>
@@ -82,7 +94,7 @@ export default function Dashboard() {
               />
             </Box>
 
-            <Box p={8} bg="gray.700" borderRadius={24} pb={4}>
+            <Box p={{ base: 4, md: 8 }} bg="gray.700" borderRadius={24} pb={4}>
               <Text color="gray.100" fontSize="large">
                 Faturamento
               </Text>
