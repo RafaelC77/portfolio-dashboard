@@ -1,23 +1,23 @@
 import {
   Flex,
   Heading,
+  Spinner,
   Table,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
+import { useCostumers } from "../../services/hooks/useCostumers";
 
 export default function Costumers() {
-  useEffect(() => {
-    fetch("http://localhost:3000/api/costumers")
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-  }, []);
+  const { data, isLoading, isFetching, error } = useCostumers();
+
+  function handleChangePage(page: number) {}
 
   return (
     <Flex w="100vw" h="100vh" justify="center" align="center">
@@ -45,29 +45,50 @@ export default function Costumers() {
             mt={{ base: 6, md: 0 }}
           >
             Clientes
+            {!isLoading && isFetching && <Spinner size="sm" ml={4} />}
           </Heading>
 
-          <Table colorScheme="blackAlpha">
-            <Thead>
-              <Tr>
-                <Th>Nome</Th>
-                <Th>E-mail</Th>
-                <Th>Data</Th>
-                <Th>Valor</Th>
-              </Tr>
-            </Thead>
+          {isLoading ? (
+            <Flex justify="center">
+              <Spinner />
+            </Flex>
+          ) : error ? (
+            <Flex justify="center">
+              <Text>Falha ao carregar clientes!</Text>
+            </Flex>
+          ) : (
+            <>
+              <Table colorScheme="blackAlpha">
+                <Thead>
+                  <Tr>
+                    <Th>Nome</Th>
+                    <Th>E-mail</Th>
+                    <Th>Data</Th>
+                    <Th>Valor</Th>
+                  </Tr>
+                </Thead>
 
-            <Tbody>
-              <Tr>
-                <Td>Rafael</Td>
-                <Td>rcarvalhobsb@gmail.com</Td>
-                <Td>01/10/2022</Td>
-                <Td>R$ 99,99</Td>
-              </Tr>
-            </Tbody>
-          </Table>
+                <Tbody>
+                  {data?.map((costumer) => {
+                    return (
+                      <Tr key={costumer.id}>
+                        <Td>{costumer.name}</Td>
+                        <Td>{costumer.email}</Td>
+                        <Td>{costumer.date}</Td>
+                        <Td>{costumer.amount}</Td>
+                      </Tr>
+                    );
+                  })}
+                </Tbody>
+              </Table>
 
-          <Pagination />
+              <Pagination
+                totalCountRegisters={100}
+                onPageChange={handleChangePage}
+                currentPage={5}
+              />
+            </>
+          )}
         </Flex>
       </Flex>
     </Flex>
