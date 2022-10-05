@@ -31,8 +31,6 @@ export function Pagination({
     return newArray;
   }, []);
 
-  console.log(pagesArray);
-
   return (
     <Stack
       direction={{ base: "column", md: "row" }}

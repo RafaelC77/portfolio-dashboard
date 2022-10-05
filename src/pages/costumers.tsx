@@ -10,14 +10,14 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
 import { useCostumers } from "../../services/hooks/useCostumers";
 
 export default function Costumers() {
-  const { data, isLoading, isFetching, error } = useCostumers();
-
-  function handleChangePage(page: number) {}
+  const [page, setpage] = useState(1);
+  const { data, isLoading, isFetching, error } = useCostumers(page);
 
   return (
     <Flex w="100vw" h="100vh" justify="center" align="center">
@@ -69,7 +69,7 @@ export default function Costumers() {
                 </Thead>
 
                 <Tbody>
-                  {data?.map((costumer) => {
+                  {data?.costumers.map((costumer) => {
                     return (
                       <Tr key={costumer.id}>
                         <Td>{costumer.name}</Td>
@@ -83,9 +83,9 @@ export default function Costumers() {
               </Table>
 
               <Pagination
-                totalCountRegisters={100}
-                onPageChange={handleChangePage}
-                currentPage={5}
+                totalCountRegisters={data.totalCount}
+                onPageChange={setpage}
+                currentPage={page}
               />
             </>
           )}

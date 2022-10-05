@@ -9,8 +9,21 @@ type Costumer = {
   amount: string;
 };
 
-export async function getCostumers(): Promise<Costumer[]> {
-  const { data } = await api.get("costumers");
+type GetCostumersResponse = {
+  costumers: Costumer[];
+  totalCount: number;
+};
+
+export async function getCostumers(
+  page: number
+): Promise<GetCostumersResponse> {
+  const { data, headers } = await api.get("costumers", {
+    params: {
+      page,
+    },
+  });
+
+  const totalCount = Number(headers["x-total-count"]);
 
   const costumers = data.costumers.map((costumer: any) => {
     return {
@@ -26,11 +39,11 @@ export async function getCostumers(): Promise<Costumer[]> {
     };
   });
 
-  return costumers;
+  return { costumers, totalCount };
 }
 
-export function useCostumers() {
-  return useQuery("costumers", getCostumers, {
+export function useCostumers(page: number) {
+  return useQuery(["costumers", page], () => getCostumers(page), {
     staleTime: 1000 * 10, // 10 seconds
   });
 }
