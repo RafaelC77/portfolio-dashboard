@@ -45,7 +45,7 @@ export function Sidebar() {
       <nav>
         <List spacing={{ base: 3, md: 6 }}>
           <ListItem fontSize={18}>
-            <NextLink href="/dashboard" passHref>
+            <NextLink href="/" passHref>
               <Link>
                 <ListIcon as={BsHouseFill} title="Dashboard" />
                 <Text fontSize={16} display={{ base: "none", md: "inline" }}>
@@ -55,11 +55,11 @@ export function Sidebar() {
             </NextLink>
           </ListItem>
           <ListItem fontSize={18}>
-            <NextLink href="/costumers" passHref>
+            <NextLink href="/customers" passHref>
               <Link>
-                <ListIcon as={BsPeopleFill} title="Costumers" />
+                <ListIcon as={BsPeopleFill} title="Customers" />
                 <Text fontSize={16} display={{ base: "none", md: "inline" }}>
-                  Costumers
+                  Customers
                 </Text>
               </Link>
             </NextLink>

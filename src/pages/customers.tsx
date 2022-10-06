@@ -13,11 +13,11 @@ import {
 import { useState } from "react";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
-import { useCostumers } from "../../services/hooks/useCostumers";
+import { useCustomers } from "../../services/hooks/useCustomers";
 
-export default function Costumers() {
+export default function Customers() {
   const [page, setpage] = useState(1);
-  const { data, isLoading, isFetching, error } = useCostumers(page);
+  const { data, isLoading, isFetching, error } = useCustomers(page);
 
   return (
     <Flex w="100vw" h="100vh" justify="center" align="center">
@@ -58,7 +58,11 @@ export default function Costumers() {
             </Flex>
           ) : (
             <>
-              <Table colorScheme="blackAlpha">
+              <Table
+                colorScheme="blackAlpha"
+                overflow="scroll"
+                size={{ base: "sm", md: "md" }}
+              >
                 <Thead>
                   <Tr>
                     <Th>Nome</Th>
@@ -69,13 +73,13 @@ export default function Costumers() {
                 </Thead>
 
                 <Tbody>
-                  {data?.costumers.map((costumer) => {
+                  {data?.customers.map((customer) => {
                     return (
-                      <Tr key={costumer.id}>
-                        <Td>{costumer.name}</Td>
-                        <Td>{costumer.email}</Td>
-                        <Td>{costumer.date}</Td>
-                        <Td>{costumer.amount}</Td>
+                      <Tr key={customer.id}>
+                        <Td>{customer.name}</Td>
+                        <Td>{customer.email}</Td>
+                        <Td whiteSpace="nowrap">{customer.date}</Td>
+                        <Td>{customer.amount}</Td>
                       </Tr>
                     );
                   })}
