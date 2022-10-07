@@ -1,114 +1,123 @@
-import { Box, Flex, SimpleGrid, Text, theme } from "@chakra-ui/react";
-import dynamic from "next/dynamic";
-import { Sidebar } from "../../components/Sidebar";
+import { Button, Flex, Heading } from "@chakra-ui/react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { parseCookies, setCookie } from "nookies";
+import * as yup from "yup";
 
-const Chart = dynamic(() => import("react-apexcharts"), {
-  ssr: false,
-});
+import { Input } from "../../components/Input";
+import { setupAPI } from "../../services/api";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import Router from "next/router";
+import { GetServerSidePropsContext } from "next";
 
-const options: ApexCharts.ApexOptions = {
-  chart: {
-    toolbar: {
-      show: false,
-    },
-    zoom: {
-      enabled: false,
-    },
-    foreColor: theme.colors.gray[500],
-  },
-  grid: {
-    show: false,
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  tooltip: {
-    enabled: true,
-  },
-  xaxis: {
-    type: "datetime",
-    axisBorder: {
-      color: theme.colors.gray[600],
-    },
-    axisTicks: {
-      color: theme.colors.gray[600],
-    },
-    categories: [
-      "2022-10-01T00:00:00.000Z",
-      "2022-09-30T00:00:00.000Z",
-      "2022-09-29T00:00:00.000Z",
-      "2022-09-28T00:00:00.000Z",
-      "2022-09-27T00:00:00.000Z",
-      "2022-09-26T00:00:00.000Z",
-      "2022-09-25T00:00:00.000Z",
-    ],
-  },
-  fill: {
-    opacity: 0.3,
-    type: "gradient",
-    gradient: {
-      shade: "dark",
-      opacityFrom: 0.7,
-      opacityTo: 0.3,
-    },
-  },
+type SignInFormData = {
+  userName: string;
+  password: string;
 };
 
-const series = [{ name: "lastWeek", data: [10, 34, 34, 23, 56, 65, 78] }];
+const formSchema = yup.object({
+  userName: yup.string().required("Usuário obrigatório!"),
+  password: yup.string().required("Senha obrigatória!"),
+});
 
-export default function Dashboard() {
+export default function Home() {
+  const { register, handleSubmit, formState } = useForm<SignInFormData>({
+    resolver: yupResolver(formSchema),
+  });
+  const errors = formState.errors;
+  const { setUser } = useContext(AuthContext);
+
+  const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
+    try {
+      const api = setupAPI();
+
+      const { data } = await api.post("auth/login", {
+        username: values.userName,
+        password: values.password,
+      });
+
+      console.log(data.token);
+
+      const user = {
+        name: data.firstName.concat("", data.lastName),
+        email: data.email,
+        image: data.image,
+      };
+
+      setUser(user);
+
+      setCookie(null, "dashboard.token", data.token, {
+        maxAge: 60 * 60 * 24 * 30,
+        path: "/", // 30 days
+      });
+
+      setCookie(null, "dashboard.user", JSON.stringify(user));
+
+      Router.push("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <Flex w="100vw" h="100vh" justify="center" align="center">
+    <Flex w="100vw" h="100vh" align="center" justify="center">
       <Flex
-        w={{ base: "100%", md: "90%" }}
-        h={{ base: "100%", md: "90%" }}
-        bg="gray.50"
-        borderRadius={{ base: 0, md: 36 }}
+        as="form"
+        w="100%"
+        maxW={360}
+        bg="gray.200"
+        p={8}
+        borderRadius={8}
+        flexDir="column"
+        gap={4}
+        onSubmit={handleSubmit(handleSignIn)}
       >
-        <Sidebar />
+        <Heading textAlign="center" size="lg">
+          Sign In
+        </Heading>
 
-        <Flex
-          as="main"
-          w="100%"
-          h="100%"
-          bg="gray.200"
-          p={{ base: 4, md: 8 }}
-          borderRadius={36}
+        <Input
+          label="Usuário"
+          type="text"
+          {...register("userName")}
+          name="userName"
+          error={errors.userName}
+        />
+        <Input
+          label="Senha"
+          type="password"
+          {...register("password")}
+          name="password"
+          error={errors.password}
+        />
+
+        <Button
+          type="submit"
+          colorScheme="blue"
+          mt={8}
+          isLoading={formState.isSubmitting}
         >
-          <SimpleGrid
-            flex={1}
-            gap={4}
-            minChildWidth={{ base: 240, sm: 320 }}
-            alignItems="flex-start"
-          >
-            <Box p={{ base: 4, md: 8 }} bg="gray.700" borderRadius={24} pb={4}>
-              <Text color="gray.100" fontSize="large">
-                Vendas
-              </Text>
-
-              <Chart
-                type="area"
-                series={series}
-                height={200}
-                options={options}
-              />
-            </Box>
-
-            <Box p={{ base: 4, md: 8 }} bg="gray.700" borderRadius={24} pb={4}>
-              <Text color="gray.100" fontSize="large">
-                Faturamento
-              </Text>
-
-              <Chart
-                type="area"
-                series={series}
-                height={200}
-                options={options}
-              />
-            </Box>
-          </SimpleGrid>
-        </Flex>
+          Entrar
+        </Button>
       </Flex>
     </Flex>
   );
+}
+
+export function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const { "dashboard.token": token } = parseCookies(ctx);
+
+  if (token) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 }

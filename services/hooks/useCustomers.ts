@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { api } from "../api";
+import { setupAPI } from "../api";
 
 type Customer = {
   id: string;
@@ -17,18 +17,19 @@ type GetCustomersResponse = {
 export async function getCustomers(
   page: number
 ): Promise<GetCustomersResponse> {
-  const { data } = await api.get("users", {
+  const api = setupAPI();
+  const response = await api.get("auth/users", {
     params: {
       limit: 10,
       skip: (page - 1) * 10,
     },
   });
 
-  console.log(data);
+  const data = response?.data;
 
-  const totalCount = data.total;
+  const totalCount = data?.total;
 
-  const customers = data.users.map((user: any) => {
+  const customers = data?.users.map((user: any) => {
     const purchaseAmount = Number(Math.random() * 100);
 
     return {

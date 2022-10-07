@@ -73,7 +73,7 @@ export default function Customers() {
                 </Thead>
 
                 <Tbody>
-                  {data?.customers.map((customer) => {
+                  {data.customers?.map((customer) => {
                     return (
                       <Tr key={customer.id}>
                         <Td>{customer.name}</Td>
@@ -87,7 +87,7 @@ export default function Customers() {
               </Table>
 
               <Pagination
-                totalCountRegisters={data.totalCount}
+                totalCountRegisters={data?.totalCount}
                 onPageChange={setpage}
                 currentPage={page}
               />
