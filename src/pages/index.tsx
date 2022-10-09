@@ -2,14 +2,14 @@ import { Button, Flex, Heading } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { parseCookies, setCookie } from "nookies";
+import { GetServerSidePropsContext } from "next";
+import Router from "next/router";
 import * as yup from "yup";
 
 import { Input } from "../../components/Input";
 import { setupAPI } from "../../services/api";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import Router from "next/router";
-import { GetServerSidePropsContext } from "next";
 
 type SignInFormData = {
   userName: string;

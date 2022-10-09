@@ -1,6 +1,4 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { parseCookies } from "nookies";
-import jwtDecode from "jwt-decode";
 
 type User = {
   name: string;

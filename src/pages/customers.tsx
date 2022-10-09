@@ -10,7 +10,10 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { GetServerSidePropsContext } from "next";
+import { parseCookies } from "nookies";
 import { useState } from "react";
+
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
 import { useCustomers } from "../../services/hooks/useCustomers";
@@ -97,4 +100,21 @@ export default function Customers() {
       </Flex>
     </Flex>
   );
+}
+
+export function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const { "dashboard.token": token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 }

@@ -9,17 +9,18 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { BsHouseFill, BsPeopleFill, BsBox } from "react-icons/bs";
-import NextLink from "next/link";
 import { useContext, useEffect } from "react";
-import { AuthContext } from "../src/contexts/AuthContext";
 import { parseCookies } from "nookies";
+import NextLink from "next/link";
+
 import jwtDecode from "jwt-decode";
+import { AuthContext } from "../src/contexts/AuthContext";
 
 export function Sidebar() {
   const { user, setUser } = useContext(AuthContext);
 
   useEffect(() => {
-    const { ["dashboard.token"]: token } = parseCookies();
+    const { "dashboard.token": token } = parseCookies();
 
     const { firstName, lastName, email, image } = jwtDecode<{
       firstName: string;

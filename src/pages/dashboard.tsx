@@ -1,5 +1,8 @@
 import { Box, Flex, SimpleGrid, Text, theme } from "@chakra-ui/react";
+import { GetServerSidePropsContext } from "next";
+import { parseCookies } from "nookies";
 import dynamic from "next/dynamic";
+
 import { Sidebar } from "../../components/Sidebar";
 
 const Chart = dynamic(() => import("react-apexcharts"), {
@@ -111,4 +114,21 @@ export default function Dashboard() {
       </Flex>
     </Flex>
   );
+}
+
+export function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const { "dashboard.token": token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 }
