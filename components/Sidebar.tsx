@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Button,
   Flex,
   Heading,
   Link,
@@ -8,7 +9,12 @@ import {
   ListItem,
   Text,
 } from "@chakra-ui/react";
-import { BsHouseFill, BsPeopleFill, BsBox } from "react-icons/bs";
+import {
+  BsHouseFill,
+  BsPeopleFill,
+  BsBox,
+  BsBoxArrowLeft,
+} from "react-icons/bs";
 import { useContext, useEffect } from "react";
 import { parseCookies } from "nookies";
 import NextLink from "next/link";
@@ -17,7 +23,7 @@ import jwtDecode from "jwt-decode";
 import { AuthContext } from "../src/contexts/AuthContext";
 
 export function Sidebar() {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, signOut } = useContext(AuthContext);
 
   useEffect(() => {
     const { "dashboard.token": token } = parseCookies();
@@ -102,6 +108,15 @@ export function Sidebar() {
           </ListItem>
         </List>
       </nav>
+
+      <Button
+        onClick={signOut}
+        leftIcon={<BsBoxArrowLeft />}
+        mt="auto"
+        _hover={{ bg: "green.400" }}
+      >
+        <Text display={{ base: "none", md: "inline" }}>Sign out</Text>
+      </Button>
     </Flex>
   );
 }
