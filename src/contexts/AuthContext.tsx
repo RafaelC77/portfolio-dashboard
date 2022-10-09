@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { parseCookies } from "nookies";
-import { api } from "../../services/api";
+import jwtDecode from "jwt-decode";
 
 type User = {
   name: string;
@@ -23,10 +23,6 @@ type AuthProviderProps = {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>(null);
   const isAuthenticated = !!user;
-
-  useEffect(() => {
-    const cookies = parseCookies();
-  }, []);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setUser, user }}>

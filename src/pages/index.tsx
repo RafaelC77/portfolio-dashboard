@@ -37,10 +37,8 @@ export default function Home() {
         password: values.password,
       });
 
-      console.log(data.token);
-
       const user = {
-        name: data.firstName.concat("", data.lastName),
+        name: data.firstName.concat(" ", data.lastName),
         email: data.email,
         image: data.image,
       };
@@ -51,8 +49,6 @@ export default function Home() {
         maxAge: 60 * 60 * 24 * 30,
         path: "/", // 30 days
       });
-
-      setCookie(null, "dashboard.user", JSON.stringify(user));
 
       Router.push("/dashboard");
     } catch (error) {

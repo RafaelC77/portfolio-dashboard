@@ -13,20 +13,28 @@ import NextLink from "next/link";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../src/contexts/AuthContext";
 import { parseCookies } from "nookies";
+import jwtDecode from "jwt-decode";
 
 export function Sidebar() {
   const { user, setUser } = useContext(AuthContext);
 
   useEffect(() => {
-    const cookies = parseCookies();
+    const { ["dashboard.token"]: token } = parseCookies();
 
-    const userData = JSON.parse(cookies["dashboard.user"]);
+    const { firstName, lastName, email, image } = jwtDecode<{
+      firstName: string;
+      lastName: string;
+      email: string;
+      image: string;
+    }>(token);
 
-    console.log(userData);
+    const userData = {
+      name: firstName.concat(" ", lastName),
+      email,
+      image,
+    };
 
-    if (userData) {
-      setUser(userData);
-    }
+    setUser(userData);
   }, []);
 
   return (
