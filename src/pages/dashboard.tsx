@@ -67,6 +67,7 @@ export default function Dashboard() {
         h={{ base: "100%", md: "90%" }}
         bg="gray.50"
         borderRadius={{ base: 0, md: 36 }}
+        direction={{ base: "column", md: "row" }}
       >
         <Sidebar />
 

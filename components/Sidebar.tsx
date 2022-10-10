@@ -1,12 +1,15 @@
 import {
   Avatar,
+  Box,
   Button,
   Flex,
   Heading,
+  Icon,
   Link,
   List,
   ListIcon,
   ListItem,
+  Stack,
   Text,
 } from "@chakra-ui/react";
 import {
@@ -46,17 +49,19 @@ export function Sidebar() {
 
   return (
     <Flex
-      flexDir="column"
-      h="100%"
-      w={{ base: "80px", md: "240px" }}
+      flexDir={{ base: "row", md: "column" }}
+      h={{ base: "auto", md: "100%" }}
+      w={{ base: "100%", md: "240px" }}
       align="center"
-      py={10}
+      justify={{ base: "space-between", md: "unset" }}
+      py={{ base: 5, md: 10 }}
+      px={{ base: "1rem", md: 0 }}
     >
-      <Heading fontSize={{ base: 16, md: 30 }} mb={{ base: 10, md: 20 }}>
+      <Heading fontSize={{ base: 16, md: 30 }} mb={{ base: 0, md: 20 }}>
         Dash
       </Heading>
 
-      <Flex direction="column" align="center" mb={{ base: 10, md: 20 }}>
+      <Flex direction="column" align="center" mb={{ base: 0, md: 20 }}>
         <Avatar
           size={{ base: "md", md: "xl" }}
           name={user?.name}
@@ -74,45 +79,62 @@ export function Sidebar() {
         </Text>
       </Flex>
 
-      <nav>
-        <List spacing={{ base: 3, md: 6 }}>
-          <ListItem fontSize={18} _hover={{ color: "green.400" }}>
-            <NextLink href="/dashboard" passHref>
-              <Link style={{ textDecoration: "none" }}>
-                <ListIcon as={BsHouseFill} title="Dashboard" />
-                <Text fontSize={16} display={{ base: "none", md: "inline" }}>
-                  Dashboard
-                </Text>
-              </Link>
-            </NextLink>
-          </ListItem>
-          <ListItem fontSize={18} _hover={{ color: "green.400" }}>
-            <NextLink href="/customers" passHref>
-              <Link style={{ textDecoration: "none" }}>
-                <ListIcon as={BsPeopleFill} title="Customers" />
-                <Text fontSize={16} display={{ base: "none", md: "inline" }}>
-                  Customers
-                </Text>
-              </Link>
-            </NextLink>
-          </ListItem>
-          <ListItem fontSize={18} _hover={{ color: "green.400" }}>
-            <NextLink href="/" passHref>
-              <Link style={{ textDecoration: "none" }}>
-                <ListIcon as={BsBox} title="Products" />
-                <Text fontSize={16} display={{ base: "none", md: "inline" }}>
-                  Products
-                </Text>
-              </Link>
-            </NextLink>
-          </ListItem>
-        </List>
-      </nav>
+      <Stack
+        direction={{ base: "row", md: "column" }}
+        spacing={{ base: "1rem", md: "3rem" }}
+      >
+        <Box>
+          <NextLink href="/dashboard" passHref>
+            <Link style={{ textDecoration: "none" }}>
+              <Icon as={BsHouseFill} title="Dashboard" />
+              <Text
+                fontSize={16}
+                display={{ base: "none", md: "inline" }}
+                ml="0.5rem"
+              >
+                Dashboard
+              </Text>
+            </Link>
+          </NextLink>
+        </Box>
+
+        <Box>
+          <NextLink href="/customers" passHref>
+            <Link style={{ textDecoration: "none" }}>
+              <Icon as={BsPeopleFill} title="Customers" />
+              <Text
+                fontSize={16}
+                display={{ base: "none", md: "inline" }}
+                ml="0.5rem"
+              >
+                Customers
+              </Text>
+            </Link>
+          </NextLink>
+        </Box>
+
+        <Box>
+          <NextLink href="/products" passHref>
+            <Link style={{ textDecoration: "none" }}>
+              <Icon as={BsBox} title="Products" />
+              <Text
+                fontSize={16}
+                display={{ base: "none", md: "inline" }}
+                ml="0.5rem"
+              >
+                Products
+              </Text>
+            </Link>
+          </NextLink>
+        </Box>
+      </Stack>
 
       <Button
         onClick={signOut}
         leftIcon={<BsBoxArrowLeft />}
-        mt="auto"
+        mt={{ base: 0, md: "auto" }}
+        px={{ base: "0.5rem", md: "1rem" }}
+        title="Sign out"
         _hover={{ bg: "green.400" }}
       >
         <Text display={{ base: "none", md: "inline" }}>Sign out</Text>
