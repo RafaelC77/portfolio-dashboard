@@ -6,9 +6,6 @@ import {
   Heading,
   Icon,
   Link,
-  List,
-  ListIcon,
-  ListItem,
   Stack,
   Text,
 } from "@chakra-ui/react";

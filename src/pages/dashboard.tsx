@@ -1,70 +1,37 @@
-import { Box, Flex, SimpleGrid, Text, theme } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Grid,
+  GridItem,
+  SimpleGrid,
+  Stat,
+  StatArrow,
+  StatHelpText,
+  StatLabel,
+  StatNumber,
+  Text,
+  theme,
+} from "@chakra-ui/react";
 import { GetServerSidePropsContext } from "next";
 import { parseCookies } from "nookies";
-import dynamic from "next/dynamic";
 
 import { Sidebar } from "../../components/Sidebar";
-
-const Chart = dynamic(() => import("react-apexcharts"), {
-  ssr: false,
-});
-
-const options: ApexCharts.ApexOptions = {
-  chart: {
-    toolbar: {
-      show: false,
-    },
-    zoom: {
-      enabled: false,
-    },
-    foreColor: theme.colors.gray[500],
-  },
-  grid: {
-    show: false,
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  tooltip: {
-    enabled: true,
-  },
-  xaxis: {
-    type: "datetime",
-    axisBorder: {
-      color: theme.colors.gray[600],
-    },
-    axisTicks: {
-      color: theme.colors.gray[600],
-    },
-    categories: [
-      "2022-10-01T00:00:00.000Z",
-      "2022-09-30T00:00:00.000Z",
-      "2022-09-29T00:00:00.000Z",
-      "2022-09-28T00:00:00.000Z",
-      "2022-09-27T00:00:00.000Z",
-      "2022-09-26T00:00:00.000Z",
-      "2022-09-25T00:00:00.000Z",
-    ],
-  },
-  fill: {
-    opacity: 0.3,
-    type: "gradient",
-    gradient: {
-      shade: "dark",
-      opacityFrom: 0.7,
-      opacityTo: 0.3,
-    },
-  },
-};
-
-const series = [{ name: "lastWeek", data: [10, 34, 34, 23, 56, 65, 78] }];
+import { SalesChart } from "../../components/Charts/SalesChart";
+import { IncomeChart } from "../../components/Charts/IncomeChart";
 
 export default function Dashboard() {
   return (
-    <Flex w="100vw" h="100vh" justify="center" align="center">
+    <Flex
+      w="100vw"
+      h={{ base: "100%", md: "100vh" }}
+      justify="center"
+      align="center"
+      p={{ base: 0, md: 8 }}
+    >
       <Flex
-        w={{ base: "100%", md: "90%" }}
-        h={{ base: "100%", md: "90%" }}
+        w="100%"
+        h="100%"
+        maxWidth={1240}
         bg="gray.50"
         borderRadius={{ base: 0, md: 36 }}
         direction={{ base: "column", md: "row" }}
@@ -78,39 +45,103 @@ export default function Dashboard() {
           bg="gray.200"
           p={{ base: 4, md: 8 }}
           borderRadius={36}
+          align="flex-start"
         >
-          <SimpleGrid
+          <Grid
+            templateColumns={{ base: "1fr", lg: "repeat(2, 1fr)" }}
             flex={1}
-            gap={4}
-            minChildWidth={{ base: 240, sm: 320 }}
+            gap={{ base: 4, lg: 8 }}
             alignItems="flex-start"
           >
-            <Box p={{ base: 4, md: 8 }} bg="gray.700" borderRadius={24} pb={4}>
+            <GridItem
+              p={{ base: 4, md: 6 }}
+              bg="gray.700"
+              borderRadius={24}
+              pb={4}
+            >
               <Text color="gray.100" fontSize="large">
                 Vendas
               </Text>
 
-              <Chart
-                type="area"
-                series={series}
-                height={200}
-                options={options}
-              />
-            </Box>
+              <SalesChart />
+            </GridItem>
 
-            <Box p={{ base: 4, md: 8 }} bg="gray.700" borderRadius={24} pb={4}>
-              <Text color="gray.100" fontSize="large">
-                Faturamento
-              </Text>
+            <GridItem
+              p={{ base: 4, md: 6 }}
+              bg="gray.300"
+              borderRadius={24}
+              pb={4}
+            >
+              <Flex gap={2} align="center">
+                <Text color="gray.900" fontSize="large">
+                  Faturamento
+                </Text>
 
-              <Chart
-                type="area"
-                series={series}
-                height={200}
-                options={options}
-              />
-            </Box>
-          </SimpleGrid>
+                <Text color="gray.600" fontSize="sm">
+                  {"(em milhares de reais)"}
+                </Text>
+              </Flex>
+
+              <IncomeChart />
+            </GridItem>
+
+            <GridItem
+              p={{ base: 4, md: 8 }}
+              bg="gray.800"
+              borderRadius={24}
+              colSpan={{ base: 1, lg: 2 }}
+            >
+              <SimpleGrid minChildWidth={190} spacing="1.5rem">
+                <Box>
+                  <Stat textAlign="center" color={theme.colors.gray[100]}>
+                    <StatLabel>Pedidos Realizados</StatLabel>
+                    <StatHelpText>jan/22 - jul/22</StatHelpText>
+                    <StatNumber>1,654</StatNumber>
+                    <StatHelpText>
+                      <StatArrow type="increase" />
+                      25,46%
+                    </StatHelpText>
+                  </Stat>
+                </Box>
+
+                <Box>
+                  <Stat textAlign="center" color={theme.colors.gray[100]}>
+                    <StatLabel>Total de Vendas</StatLabel>
+                    <StatHelpText>jan/22 - jul/22</StatHelpText>
+                    <StatNumber>R$ 458.321,00</StatNumber>
+                    <StatHelpText>
+                      <StatArrow type="increase" />
+                      13,79%
+                    </StatHelpText>
+                  </Stat>
+                </Box>
+
+                <Box>
+                  <Stat textAlign="center" color={theme.colors.gray[100]}>
+                    <StatLabel>Ticket Médio</StatLabel>
+                    <StatHelpText>jan/22 - jul/22</StatHelpText>
+                    <StatNumber>R$ 277,09</StatNumber>
+                    <StatHelpText>
+                      <StatArrow type="increase" />
+                      7,26%
+                    </StatHelpText>
+                  </Stat>
+                </Box>
+
+                <Box>
+                  <Stat textAlign="center" color={theme.colors.gray[100]}>
+                    <StatLabel>Porcentagem de Lucro</StatLabel>
+                    <StatHelpText>jan/22 - jul/22</StatHelpText>
+                    <StatNumber>18,46%</StatNumber>
+                    <StatHelpText>
+                      <StatArrow type="decrease" />
+                      23,14%
+                    </StatHelpText>
+                  </Stat>
+                </Box>
+              </SimpleGrid>
+            </GridItem>
+          </Grid>
         </Flex>
       </Flex>
     </Flex>
