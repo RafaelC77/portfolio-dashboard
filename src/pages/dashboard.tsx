@@ -91,7 +91,7 @@ export default function Dashboard() {
               borderRadius={24}
               colSpan={{ base: 1, lg: 2 }}
             >
-              <SimpleGrid minChildWidth={190} spacing="1.5rem">
+              <SimpleGrid minChildWidth={180} spacing="1.5rem">
                 <Box>
                   <Stat textAlign="center" color={theme.colors.gray[100]}>
                     <StatLabel>Pedidos Realizados</StatLabel>
