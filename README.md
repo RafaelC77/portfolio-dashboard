@@ -27,6 +27,10 @@ são listados os produtos.
 ![Captura de tela de 2022-10-17 18-57-02](https://user-images.githubusercontent.com/91793932/196291527-a3437639-fe69-4751-afd1-083274640d2f.png)
 ![Captura de tela de 2022-10-17 18-57-31](https://user-images.githubusercontent.com/91793932/196291585-fd464d06-ebfa-4584-ae9f-0bade332976b.png)
 
+## Deploy
+
+- [Dashboard](https://dashboard-rafaelc77.vercel.app/dashboard)
+
 ## Como executar o projeto
 
 ```
