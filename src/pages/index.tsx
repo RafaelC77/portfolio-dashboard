@@ -90,7 +90,7 @@ export default function Home() {
 
         <Button
           type="submit"
-          colorScheme="blue"
+          colorScheme="green"
           mt={8}
           isLoading={formState.isSubmitting}
         >
