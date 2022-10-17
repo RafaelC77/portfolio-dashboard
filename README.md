@@ -42,8 +42,16 @@ yarn
 
 # executar o projeto
 yarn dev
+
+# login
+
+ usuário: kminchelle
+ senha: 0lelplR
+ 
+ ou utilizar qualquer usuário da seguinte API: https://dummyjson.com/docs/users
+
 ```
 
 ## Licença
 
-Projeto sob [licença]() MIT.
+Projeto sob [licença](https://github.com/RafaelC77/portfolio-dashboard/blob/main/LICENSE) MIT.
