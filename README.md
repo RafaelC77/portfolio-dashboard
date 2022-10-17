@@ -39,7 +39,7 @@ são listados os produtos.
 $ git clone https://github.com/RafaelC77/portfolio-dashboard.git
 
 # acessar a pasta do projeto 
-cd gamer-shop
+cd portfolio-dashboard
 
 # instalar as dependências
 yarn
