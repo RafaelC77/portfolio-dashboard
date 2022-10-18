@@ -1,4 +1,15 @@
-import { Button, Flex, Heading } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Heading,
+  Popover,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  Text,
+} from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { parseCookies, setCookie } from "nookies";
@@ -96,6 +107,22 @@ export default function Home() {
         >
           Entrar
         </Button>
+
+        <Popover>
+          <PopoverTrigger>
+            <Button width="fit-content" bg="transparent" mx="auto">
+              Instruções de login
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverCloseButton />
+            <PopoverHeader>Para logar use as informações abaixo:</PopoverHeader>
+            <PopoverBody>
+              <Text>Login: kminchelle</Text>
+              <Text>Senha: 0lelplR</Text>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
       </Flex>
     </Flex>
   );
