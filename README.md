@@ -1,9 +1,14 @@
 # Dashboard Project
 
-Trata-se de um projeto pesssoal de um painel administrativo, desenvolvido para integrar o portfolio, o qual simula o dashboard de um e-commerce, 
-onde é possível visualizar dados sobre o negócio.  
-Na página principal são apresentados gráficos e estatísticas. Além disso, a aplicação conta com uma página onde pode-se visualizar as compras realizadas e outra onde
-são listados os produtos.
+Este é um projeto pesssoal desenvolvido para integrar portfolio, o qual simula o painel administrativo de um *e-commerce*.
+
+Na página principal são apresentados gráficos e estatísticas. Além disso, a aplicação conta com outras duas páginas onde pode-se visualizar as compras realizadas e são listados os produtos.
+
+O projeto conta também com autenticação de usuário. No momento do login um token é armazenado nos cookies.  
+As páginas do projeto só podem ser acessadas com o uso de um token válido.
+Por meio da função **getServerSideProps**, essa verificação é realizada no servidor que redireciona o usuário para o signin em caso de falha.
+
+As chamadas à API são realizadas com o **React Query**, que faz o *fetching* dos dados e os armazena em cache, evitando chamadas desnecessárias.
 
 ## Tecnologias utilizadas
 
@@ -12,7 +17,6 @@ são listados os produtos.
 - Chakra-UI
 - Axios
 - React-query
-- React-hook-form
 - Apex-charts
 
 ## Layout mobile
