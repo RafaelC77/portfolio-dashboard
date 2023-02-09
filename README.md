@@ -1,16 +1,10 @@
 # Dashboard Project
 
-Este é um projeto pesssoal desenvolvido para integrar portfolio, o qual simula o painel administrativo de um *e-commerce*.
 
-Na página principal são apresentados gráficos e estatísticas. Além disso, a aplicação conta com outras duas páginas onde pode-se visualizar as compras realizadas e são listados os produtos.
+This is a personal project developed to integrate my portfolio, which simulates the administrative panel of an *e-commerce*.
+It consists of different types of charts, statistics, purchase history, and product listings.
 
-O projeto conta também com autenticação de usuário. No momento do login um token é armazenado nos cookies.  
-As páginas do projeto só podem ser acessadas com o uso de um token válido.
-Por meio da função **getServerSideProps**, essa verificação é realizada no servidor que redireciona o usuário para o signin em caso de falha.
-
-As chamadas à API são realizadas com o **React Query**, que faz o *fetching* dos dados e os armazena em cache, evitando chamadas desnecessárias.
-
-## Tecnologias utilizadas
+## Libraries/Frameworks
 
 - Typescript
 - NextJS
@@ -35,31 +29,29 @@ As chamadas à API são realizadas com o **React Query**, que faz o *fetching* d
 
 - [Dashboard](https://dashboard-rafaelc77.vercel.app/dashboard)
 
-## Como executar o projeto
+## Running this project
 
 ```
-# clonar o repositório
+# clone the repository
 
 $ git clone https://github.com/RafaelC77/portfolio-dashboard.git
 
-# acessar a pasta do projeto 
+# access the project folder 
 cd portfolio-dashboard
 
-# instalar as dependências
+# install the project dependencies
 yarn
 
-# executar o projeto
+# run the project
 yarn dev
 
 # login
 
- usuário: kminchelle
- senha: 0lelplR
- 
- ou utilizar qualquer usuário da seguinte API: https://dummyjson.com/docs/users
+ user: kminchelle
+ password: 0lelplR
 
 ```
 
-## Licença
+## License
 
-Projeto sob [licença](https://github.com/RafaelC77/portfolio-dashboard/blob/main/LICENSE) MIT.
+Project under [MIT license](https://github.com/RafaelC77/portfolio-dashboard/blob/main/LICENSE).
